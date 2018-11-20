@@ -45,12 +45,24 @@ class MenuTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCellIdentifier", for: indexPath)
         
+        configure(cell: cell, forItemAt: indexPath)
+
+        return cell
+    }
+    
+    func configure(cell: UITableViewCell, forItemAt indexPath: IndexPath) {
         let menuItem = menuItems[indexPath.row]
         
         cell.textLabel?.text = menuItem.name
-        cell.detailTextLabel?.text = "$\(Int(menuItem.price))"
-
-        return cell
+        cell.detailTextLabel?.text = String(format: "$%.2f", menuItem.price)
+        
+        menuController.fetchImage(url: menuItem.imageURL) {
+            image in
+            
+            DispatchQueue.main.async {
+                cell.imageView?.image = image
+            }
+        }
     }
 
     /*
