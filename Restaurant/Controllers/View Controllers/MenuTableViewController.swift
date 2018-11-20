@@ -48,7 +48,7 @@ class MenuTableViewController: UITableViewController {
         let menuItem = menuItems[indexPath.row]
         
         cell.textLabel?.text = menuItem.name
-        cell.detailTextLabel?.text = "$\(menuItem.price)"
+        cell.detailTextLabel?.text = "$\(Int(menuItem.price))"
 
         return cell
     }
